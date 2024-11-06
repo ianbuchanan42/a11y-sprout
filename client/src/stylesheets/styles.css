@@ -1,0 +1,21 @@
+body {
+  background-color: #ffcb9a;
+}
+
+h1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#url-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#tree {
+  background-color: tan;
+  display: flex;
+  flex-direction: row;
+}
