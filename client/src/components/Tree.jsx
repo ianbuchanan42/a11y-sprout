@@ -4,7 +4,7 @@ import Link from './Link';
 import Branch from './Branch';
 import { nanoid } from 'nanoid';
 
-function Tree({ tree }) {
+function Tree({ tree, activeTab }) {
   const skipLink = tree.skipLink;
 
   const links = tree.links.map(({ text, link }) => {
@@ -25,21 +25,39 @@ function Tree({ tree }) {
   });
   return (
     <section id='tree'>
-      <Branch title={'Full Tree'}>{elements}</Branch>
-      <Branch title={'Tab Index'}>{tabElements}</Branch>
-      <Branch title={'Headers'}>{headers}</Branch>
-      <Branch title={'Links'}>{links}</Branch>
-      <Branch title={'Non Semantic Links'}>{nonSemanticLinks}</Branch>
-      <Branch title={'Skip Link'}>
-        {' '}
-        {skipLink.text.length ? (
-          <Link text={skipLink.text} link={skipLink.link} />
-        ) : (
-          <span>No Skip Link Found</span>
-        )}
-      </Branch>
+      {activeTab === 'Full Tree' && (
+        <Branch title={'Full Tree'}>{elements}</Branch>
+      )}
+      {activeTab === 'Tab Index' && (
+        <Branch title={'Tab Index'}>{tabElements}</Branch>
+      )}
+      {activeTab === 'Headers' && <Branch title={'Headers'}>{headers}</Branch>}
+      {activeTab === 'Links' && <Branch title={'Links'}>{links}</Branch>}
+      {activeTab === 'Non Semantic Links' && (
+        <Branch title={'Non Semantic Links'}>{nonSemanticLinks}</Branch>
+      )}
+      {activeTab === 'Skip Link' && (
+        <Branch title={'Skip Link'}>
+          {' '}
+          {skipLink.text.length ? (
+            <Link text={skipLink.text} link={skipLink.link} />
+          ) : (
+            <span>No Skip Link Found</span>
+          )}
+        </Branch>
+      )}
     </section>
   );
 }
 
 export default Tree;
+
+// const TabContent = ({ activeTab }) => {
+//   return (
+//     <div className='tab-content'>
+//       {activeTab === 'Tab1' && <div>Content for Tab 1</div>}
+//       {activeTab === 'Tab2' && <div>Content for Tab 2</div>}
+//       {activeTab === 'Tab3' && <div>Content for Tab 3</div>}
+//     </div>
+//   );
+// };
