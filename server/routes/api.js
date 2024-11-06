@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const A11ySprout = require('../puppeteer/A11ySprout');
+
 const a11yTreeController = require('../controllers/a11yTreeController');
 
 // Sample route

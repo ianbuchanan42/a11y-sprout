@@ -2,12 +2,19 @@ const mongoose = require('mongoose');
 
 mongoose
   .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     dbName: 'a11ySprout',
   })
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('Error connecting to MongoDB:', err));
+
+const UserSchema = new mongoose.Schema({
+  githubId: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  profileUrl: String,
+  avatarUrl: String,
+});
+
+const User = mongoose.model('user', UserSchema);
 
 const ElementSchema = new mongoose.Schema({
   role: {
@@ -62,4 +69,4 @@ const A11YTreeSchema = new mongoose.Schema({
 
 const A11lyTree = mongoose.model('a11y-tree', A11YTreeSchema);
 
-module.exports = { A11lyTree };
+module.exports = { A11lyTree, User };
