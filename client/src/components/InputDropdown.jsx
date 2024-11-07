@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const InputDropdown = ({ label, user, updateTree }) => {
+const InputDropdown = ({ label, user, updateTree, currentTree }) => {
   const options = user.trees.map((tree) => {
     return tree.url;
   });
@@ -19,7 +19,7 @@ const InputDropdown = ({ label, user, updateTree }) => {
   return (
     <div>
       <label>{label}</label>
-      <select onChange={handleChange}>
+      <select select={currentTree.url} onChange={handleChange}>
         <option value='' disabled>
           Select an option
         </option>

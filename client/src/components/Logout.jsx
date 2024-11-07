@@ -11,6 +11,7 @@ const Logout = () => {
         console.log('logout', response.body);
         if (response.ok) {
           // Redirect to home or login page after logout
+
           window.location.href = '/';
         } else {
           console.error('Failed to log out');

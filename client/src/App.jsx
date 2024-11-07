@@ -26,6 +26,11 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log({ data });
+        // not sure if I need to check if trees is a property, might be default
+        if (data.user.trees.length) {
+          setA11yTree(data.user.trees[0]);
+        }
+
         setUser(data.user);
         setAuth(data); // Update state with authentication status and user data
       })
@@ -58,14 +63,16 @@ const App = () => {
       {console.log({ user })}
       {user && (
         <InputDropdown
-          label={'User Trees'}
+          label={'Parsed A11y Trees'}
           user={user}
           updateTree={setA11yTree}
+          currentTree={a11yTree}
         />
       )}
       {console.log({ a11yTree })}
       {a11yTree && (
         <section>
+          <h2>{a11yTree.url}</h2>
           {user && <RemoveTree userId={user._id} treeUrl={a11yTree.url} />}
           <Tabs activeTab={activeTab} handleTabChange={handleTabChange} />
           <Tree activeTab={activeTab} tree={a11yTree} />

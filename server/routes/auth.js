@@ -39,7 +39,15 @@ router.get('/logout', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    return res.json({ authenticated: false, user: {} });
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error clearing session' });
+      }
+
+      res.clearCookie('connect.sid');
+
+      return res.json({ authenticated: false, user: {} });
+    });
   });
 });
 
