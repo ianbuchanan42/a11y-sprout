@@ -3,7 +3,8 @@ import React from 'react';
 //remove with no-cors mode!!!!!
 
 function RemoveTree({ userId, treeUrl }) {
-  const handleRemove = () => {
+  const handleRemove = (e) => {
+    //e.preventDefault();
     fetch('api/', {
       method: 'DELETE',
       credentials: 'include',
@@ -13,7 +14,6 @@ function RemoveTree({ userId, treeUrl }) {
       body: JSON.stringify({ url: treeUrl, id: userId }),
     })
       .then((response) => {
-        console.log('logout', response.body);
         if (response.ok) {
           // Redirect to home or login page after logout
           window.location.href = '/';

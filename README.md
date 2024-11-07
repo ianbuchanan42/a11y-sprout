@@ -1,6 +1,6 @@
 # A11y Sprout
 
-A11y Sprout leverages [Puppeteer](https://website-name.com) to scrape the accessability tree of a designated website and returns the current state of Links, Headers, Landmarks and Tabindex. Which can give us a glimpse into a websites usability in regards to [assistive technology ](https://www.levelaccess.com/blog/assistive-technology/) such as [screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) and [VoiceOver](https://support.apple.com/guide/voiceover-guide/welcome/web)
+A11y Sprout leverages [Puppeteer](https://website-name.com) to scrape the [accessability tree](https://developer.mozilla.org/en-US/docs/Glossary/Accessibility_tree) of a designated website and returns the current state of Links, Headers, Landmarks and Tabindex. Which can give us a glimpse into a websites usability in regards to [assistive technology ](https://www.levelaccess.com/blog/assistive-technology/) such as [screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) and [VoiceOver](https://support.apple.com/guide/voiceover-guide/welcome/web)
 
 ## Accessibility.snapshot() method
 

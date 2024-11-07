@@ -28,7 +28,7 @@ const App = () => {
       .then((data) => {
         console.log({ data });
         // not sure if I need to check if trees is a property, might be default
-        if (data.user.trees.length) {
+        if (data?.user?.trees.length) {
           setA11yTree(data.user.trees[0]);
         }
 
@@ -36,10 +36,6 @@ const App = () => {
         setAuth(data); // Update state with authentication status and user data
       })
       .catch((error) => {
-        console.log(
-          '!!!!!!!!!!!!!!!!!!!!!!!!!!! not fetching well !!!!!!!!!!!!!!!!!',
-          error
-        );
         console.error('Error checking user authentication:', error);
       });
   }, []);

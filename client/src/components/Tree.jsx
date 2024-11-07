@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import Element from './Element';
 import Link from './Link';
 import Branch from './Branch';
+import {
+  h1Aside,
+  headerAside,
+  skipLinkFound,
+  skipLinkAside,
+  linksAside,
+  treeAside,
+  tabIndexAside,
+  nonSemanticLinksAside,
+} from './AsideContent';
 import { nanoid } from 'nanoid';
 
 function Tree({ tree, activeTab }) {
@@ -50,52 +60,56 @@ function Tree({ tree, activeTab }) {
       />
     );
   });
+
+  const h1Aside =
+    h1 === false ? (
+      <p>
+        <span className='bad'>No h1 found! </span>The h1 tag is the main heading
+        or title of a page, and it should match the page's title closely. This
+        helps screen reader users understand what the page is about.
+      </p>
+    ) : (
+      ''
+    );
+
+  const skipLinkFound = skipLink.text.length ? (
+    <Link text={skipLink.text} link={skipLink.link} />
+  ) : (
+    <span className='bad tan'>No Skip Link Found</span>
+  );
+
   return (
     <section id='tree'>
       {activeTab === 'Full Tree' && (
-        <Branch title={'Full Tree'}>{elements}</Branch>
+        <Branch aside={treeAside} title={'Full Tree'}>
+          {elements}
+        </Branch>
       )}
       {activeTab === 'Tab Index' && (
-        <Branch title={'Tab Index'}>{tabElements}</Branch>
+        <Branch aside={tabIndexAside} title={'Tab Index'}>
+          {tabElements}
+        </Branch>
       )}
       {activeTab === 'Headers' && (
-        <Branch h1={h1} title={'Headers'}>
+        <Branch aside={[headerAside, h1Aside]} title={'Headers'}>
           {headers}
         </Branch>
       )}
-      {activeTab === 'Links' && <Branch title={'Links'}>{links}</Branch>}
+      {activeTab === 'Links' && (
+        <Branch aside={linksAside} title={'Links'}>
+          {links}
+        </Branch>
+      )}
       {activeTab === 'Non Semantic Links' && (
-        <Branch title={'Non Semantic Links'}>{nonSemanticLinks}</Branch>
+        <Branch aside={nonSemanticLinksAside} title={'Non Semantic Links'}>
+          {nonSemanticLinks}
+        </Branch>
       )}
       {activeTab === 'Skip Link' && (
-        <Branch title={'Skip Link'}>
-          {' '}
-          {skipLink.text.length ? (
-            <Link text={skipLink.text} link={skipLink.link} />
-          ) : (
-            <>
-              <span className='bad'>No Skip Link Found</span>
-              <p>
-                A{' '}
-                <a
-                  className='good'
-                  href='https://webaim.org/techniques/skipnav/'
-                >
-                  skip link
-                </a>{' '}
-                is an essential accessibility feature that allows users,
-                especially those relying on assistive technologies like screen
-                readers and keyboard navigation, to bypass repetitive navigation
-                and jump directly to the main content of a page. This improves
-                navigation efficiency, reduces cognitive load, and aligns with
-                Web Content Accessibility Guidelines (WCAG). Skip links enhance
-                usability for all users by minimizing the need to repeatedly tab
-                or scroll through the same elements, creating a more inclusive
-                and user-friendly experience.
-              </p>
-            </>
-          )}
-        </Branch>
+        <Branch
+          aside={[skipLinkFound, skipLinkAside]}
+          title={'Skip Link'}
+        ></Branch>
       )}
     </section>
   );

@@ -1,6 +1,8 @@
 body {
   background-color: #ffd49a;
   color: #3d3e3d;
+  font-family: 'Nunito', sans-serif;
+  margin: 2em;
 }
 
 h1 {
@@ -138,7 +140,7 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 80%;
   margin: auto;
   border-radius: 20px;
 }
@@ -218,4 +220,13 @@ header {
   border-radius: 10px;
   padding: 4px;
   margin: 4px;
+}
+
+/* styles text if skip link is not found */
+.tan {
+  background-color: #ffe8c7;
+  list-style: none;
+  margin: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
 }
