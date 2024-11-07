@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import URLForm from './components/URLForm';
 import Tree from './components/Tree';
 import Tabs from './components/Tabs';
-import Login from './components/Login';
-import Logout from './components/Logout';
+// import Login from './components/Login';
+// import Logout from './components/Logout';
 import InputDropdown from './components/InputDropdown';
 import RemoveTree from './components/RemoveTree';
+import Header from './components/Header';
 import logo from './assets/A11y-Sprout-Logo.png';
 
 ///Users/ianbuchanan/Codesmith/a11y-sprout/client/public/assets/A11y-Sprout-Logo.png
@@ -53,12 +54,9 @@ const App = () => {
 
   return (
     <main>
-      <h1> 🌱 A11y Sprout</h1>
-
-      <img src={logo} alt='A11y Sprout Logo' />
-      <Login />
-      <Logout />
-      {auth.user ? <span>{auth.user.username}</span> : <span>no user</span>}
+      <Header logo={logo} auth={auth} />
+      {/* <Login />
+      <Logout /> */}
       <URLForm auth={auth} updateTree={setA11yTree} updateUser={setUser} />
       {console.log({ user })}
       {user && (

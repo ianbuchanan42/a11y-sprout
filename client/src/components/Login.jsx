@@ -12,7 +12,6 @@ function Login() {
 
   return (
     <div>
-      <h2>Login with GitHub</h2>
       <button onClick={handleLogin}>Login with GitHub</button>
     </div>
   );

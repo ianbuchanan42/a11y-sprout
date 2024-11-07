@@ -20,12 +20,7 @@ const Logout = () => {
       .catch((error) => console.error('Logout error:', error));
   };
 
-  return (
-    <>
-      <h2>Are you sure you want to log out?</h2>
-      <button onClick={handleLogout}>Logout</button>
-    </>
-  );
+  return <button onClick={handleLogout}>Logout</button>;
 };
 
 export default Logout;

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Tabs({ activeTab, handleTabChange }) {
   return (
-    <section className='tabs'>
+    <section id='tabs'>
       <button
         className={activeTab === 'Full Tree' ? 'active' : ''}
         onClick={handleTabChange('Full Tree')}
