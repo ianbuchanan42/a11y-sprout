@@ -23,7 +23,11 @@ function RemoveTree({ userId, treeUrl }) {
       })
       .catch((error) => console.error('Remove error', error));
   };
-  return <button onClick={handleRemove}>Remove Tree</button>;
+  return (
+    <button id='remove' onClick={handleRemove}>
+      Remove Tree
+    </button>
+  );
 }
 
 export default RemoveTree;

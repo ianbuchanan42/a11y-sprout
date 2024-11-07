@@ -16,7 +16,13 @@ const router = express.Router();
 
 // router.get(
 //   '/github',
-//   passport.authenticate('github', { scope: ['user:email'] })
+//   passport.authenticate(
+//     'github',
+//     { scope: ['user:email'] },
+//     (req, res, next) => {
+//       return res.redirect('http://localhost:8080/');
+//     }
+//   )
 // );
 
 // GitHub OAuth callback
@@ -47,6 +53,7 @@ router.get('/logout', (req, res, next) => {
       res.clearCookie('connect.sid');
 
       return res.json({ authenticated: false, user: {} });
+      //return res.redirect('/auth/github');
     });
   });
 });

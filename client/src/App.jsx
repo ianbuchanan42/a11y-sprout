@@ -55,11 +55,10 @@ const App = () => {
   return (
     <main>
       <Header logo={logo} auth={auth} />
-      {/* <Login />
-      <Logout /> */}
+
       <URLForm auth={auth} updateTree={setA11yTree} updateUser={setUser} />
       {console.log({ user })}
-      {user && (
+      {user && user.trees.length > 0 && (
         <InputDropdown
           label={'Parsed A11y Trees'}
           user={user}
@@ -69,7 +68,7 @@ const App = () => {
       )}
       {console.log({ a11yTree })}
       {a11yTree && (
-        <section>
+        <section id='a11yTree'>
           <h2>{a11yTree.url}</h2>
           {user && <RemoveTree userId={user._id} treeUrl={a11yTree.url} />}
           <Tabs activeTab={activeTab} handleTabChange={handleTabChange} />

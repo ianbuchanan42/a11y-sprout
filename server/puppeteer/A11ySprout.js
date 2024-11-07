@@ -46,31 +46,6 @@ A11ySprout.parse = async (url) => {
     tabIndex.push(tab);
   }
 
-  //skip link check
-
-  // const firstLinkSelector = 'a';
-
-  // // Check if the first link is a skip link using a regex to match common patterns
-  // const isSkipLink = await page.evaluate((selector) => {
-  //   const link = document.querySelector(selector);
-  //   if (!link) return false;
-
-  //   // Regular expression for common skip link targets
-  //   const skipLinkRegex =
-  //     /^#.*(skip|main|content|primary|main-content|page-content|primary-content|body-content|wrapper|container|app-content|app|site-content).*/;
-
-  //   // Check href attribute against the regex
-  //   return skipLinkRegex.test(link.getAttribute('href'));
-  // }, firstLinkSelector);
-
-  // console.log(
-  //   `Is the first link a skip link? ${isSkipLink ? 'Yes' : 'No'} ${isSkipLInk}`
-  // );
-
-  // check if links have meaningful text
-
-  // used for both finding nonSemanticLinks and regular list of links
-
   const links = await page.evaluate(() => {
     // Define non-meaningful terms to search for
     // let look at this and sort out what is being returned for skipLink
@@ -107,8 +82,6 @@ A11ySprout.parse = async (url) => {
   //console.log(nonSemanticLinks);
   //console.log(links);
 
-  // Example of using the function
-
   const tree = await page.accessibility.snapshot({
     interestingOnly: true,
   });
@@ -117,12 +90,46 @@ A11ySprout.parse = async (url) => {
 
   const headers = [];
 
+  let h1 = false;
+  let previousHeaderLevel = 1;
+  let brokenHierarchy = false;
+
   snapshot.children.forEach((element) => {
+    let rating = '';
     if (element.role === 'heading') {
+      rating = 'good';
+      // check for and rate for one h1 header
+      if (element.level == 1) {
+        if (!h1) {
+          h1 = true;
+        } else {
+          rating = 'bad';
+        }
+      } else {
+        if (element.level >= previousHeaderLevel) {
+          if (brokenHierarchy) {
+            rating = 'bad';
+          } else if (
+            element.level === previousHeaderLevel ||
+            element.level - 1 === previousHeaderLevel
+          ) {
+            rating = 'good';
+          } else {
+            rating = 'bad';
+            brokenHierarchy = true;
+          }
+        } else {
+          brokenHierarchy = false;
+        }
+      }
+
+      previousHeaderLevel = element.level;
+
       headers.push({
         role: element.role,
         name: element.name,
         level: element.level,
+        rating: rating,
       });
     }
   });
@@ -144,6 +151,7 @@ A11ySprout.parse = async (url) => {
     links: links.links,
     nonSemanticLinks: links.nonSemanticLinks,
     skipLink: links.skipLink,
+    h1: h1,
   };
 
   //console.log({ result });

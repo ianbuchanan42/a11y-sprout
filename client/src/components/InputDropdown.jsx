@@ -17,7 +17,7 @@ const InputDropdown = ({ label, user, updateTree, currentTree }) => {
   };
 
   return (
-    <div>
+    <div id='dropdown'>
       <label>{label}</label>
       <select select={currentTree.url} onChange={handleChange}>
         <option value='' disabled>

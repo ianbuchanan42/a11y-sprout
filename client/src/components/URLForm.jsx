@@ -31,6 +31,7 @@ function URLForm({ auth, updateTree, updateUser }) {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          setUrl('');
           if (auth.user) {
             updateUser(data.user);
             updateTree(data.tree);

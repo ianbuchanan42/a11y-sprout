@@ -21,12 +21,13 @@ a11yTreeController.getTree = async (req, res, next) => {
         throw new Error('User not found');
       }
 
-      const hasTree = user.trees.some((tree) => {
+      const hasTree = user.trees.filter((tree) => {
         return tree.url === url;
       });
 
-      if (hasTree) {
-        return res.status(200).json(user);
+      if (hasTree.length) {
+        const tree = hasTree[0];
+        return res.status(200).json({ user, tree });
       }
 
       const tree = await A11ySprout.parse(url);
@@ -38,18 +39,20 @@ a11yTreeController.getTree = async (req, res, next) => {
       console.log('A11yTree successfully added to user:', user.username);
       return res.status(200).json({ user, tree });
     } else {
-      const foundTree = await models.A11lyTree.findOne({ url: url }).exec();
-      if (foundTree) {
-        console.log('!!!!!!!!!!FOUND:', url);
-        return res.status(200).json(foundTree);
-      }
+      // removed tree population unless logged in
+      // const foundTree = await models.A11lyTree.findOne({ url: url }).exec();
+      // if (foundTree) {
+      //   console.log('!!!!!!!!!!FOUND:', url);
+      //   return res.status(200).json(foundTree);
+      // }
       //otherwise parse doc at target url
       const tree = await A11ySprout.parse(url);
       // then save it to data base
       console.log({ tree });
-      const savedTree = await models.A11lyTree.create(tree);
+      //const savedTree = await models.A11lyTree.create(tree);
       //check to see if tree is in data base
-      return res.status(200).json(savedTree);
+      //return res.status(200).json(savedTree);
+      return res.status(200).json(tree);
     }
   } catch (err) {
     console.log(err);
@@ -68,16 +71,9 @@ a11yTreeController.deleteTree = async (req, res, next) => {
   try {
     const updatedUser = await models.User.findByIdAndUpdate(
       id,
-      { $pull: { trees: { url } } }, // Remove the tree with the matching _id
-      { new: true } // Return the updated user document
+      { $pull: { trees: { url } } },
+      { new: true }
     );
-    // const user = await models.User.findById(id);
-    // const filteredTrees = user.trees.filter((tree) => {
-    //   return tree.url !== url;
-    // });
-    // user.trees = filteredTrees;
-
-    // await user.save();
 
     return res.status(200).json(updatedUser);
     // select trees, filter out tree, save user;
@@ -85,15 +81,5 @@ a11yTreeController.deleteTree = async (req, res, next) => {
     next(err);
   }
 };
-
-//try {
-//     //console.log('req.body.url: ', req.body.url);
-//     const tree = await A11ySprout.parse(req.body.url);
-//     console.log({ tree });
-//     return res.status(200).json(tree);
-//   } catch (e) {
-//     console.log(e);
-//     return e;
-//   }
 
 module.exports = a11yTreeController;

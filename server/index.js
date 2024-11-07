@@ -25,7 +25,7 @@ app.use(
 // Express session setup
 app.use(
   session({
-    secret: 'secret12', // Replace with a secure secret in production
+    secret: 'secret', // Replace with a secure secret in production
     resave: false,
     saveUninitialized: true,
   })

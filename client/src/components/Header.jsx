@@ -7,7 +7,8 @@ function Header({ logo, auth }) {
     <header>
       <div id='title'>
         <img id='logo' src={logo} alt='A11y Sprout Logo' />
-        <h1>A11y Sprout</h1>
+        <h1>A11ySprout</h1>
+        <span id='asterisk'>* A11y === Accessability</span>
       </div>
       <div id='user'>
         {auth.user && <h3 id='username'>{auth.user.username}</h3>}

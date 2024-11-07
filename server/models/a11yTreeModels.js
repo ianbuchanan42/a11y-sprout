@@ -22,6 +22,10 @@ const ElementSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
+  rating: {
+    type: String,
+    default: '',
+  },
 });
 
 const LinkSchema = new mongoose.Schema({
@@ -57,6 +61,10 @@ const A11YTreeSchema = new mongoose.Schema({
   skipLink: {
     type: LinkSchema,
     required: [true, 'A skip link must be present'],
+  },
+  h1: {
+    type: Boolean,
+    required: [true, 'A h1 prop must be present'],
   },
 });
 

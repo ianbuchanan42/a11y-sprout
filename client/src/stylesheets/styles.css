@@ -3,6 +3,26 @@ body {
   color: #3d3e3d;
 }
 
+h1 {
+  text-decoration: underline;
+  text-decoration-color: #955600;
+}
+
+#asterisk {
+  color: #a86814;
+
+  font-size: 1.5em;
+  line-height: 1.5em;
+  padding-bottom: 0.5m;
+  padding-left: 1em;
+}
+
+p {
+  background-color: #ffe8c7;
+  padding: 1em;
+  border-radius: 10px;
+}
+
 header {
   display: flex;
   flex-direction: row;
@@ -47,7 +67,41 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 4em;
+  align-items: baseline;
+  margin: 2em;
+  background-color: #d2b48c;
+  width: 40%;
+  margin: auto;
+  padding: 1em;
+  border-radius: 20px;
+}
+
+#url-form label,
+#url-form input,
+#url-form button {
+  margin: 1em;
+  height: 2em;
+  font-size: 1.2em;
+  padding: auto;
+}
+
+#url-form button {
+  margin: 1em;
+  background-color: #ffe8c7;
+  border-radius: 10px;
+  border: 4px solid #d2b48c;
+}
+
+#url-form button:hover {
+  border: 4px solid #955600;
+}
+
+#url {
+  background-color: #ffd49a;
+  border: none;
+  border-radius: 5px;
+  border: 5px solid #955600;
+  padding: 0.25em;
 }
 
 #tree {
@@ -78,6 +132,57 @@ header {
   border: 5px solid #955600;
 }
 
+.branch {
+  background-color: tan;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  border-radius: 20px;
+}
+
+.branch h2 {
+  text-align: center;
+}
+
+#dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d2b48c;
+  margin: auto;
+  margin-top: 3em;
+  width: 50%;
+  height: 4em;
+  border-radius: 20px;
+}
+
+#dropdown select {
+  width: 50%;
+  margin-left: 2em;
+  background-color: #ffd49a;
+  border: 5px solid #955600;
+  border-radius: 5px;
+  color: #3d3e3d;
+}
+
+#a11yTree {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#remove {
+  margin: auto;
+  background-color: #ffe8c7;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px solid #d2b48c;
+}
+
 .link {
   background-color: #ffe8c7;
   list-style: none;
@@ -92,4 +197,25 @@ header {
   margin: 0.5em;
   padding: 0.5em;
   border-radius: 5px;
+}
+
+.good,
+.bad {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.good {
+  text-decoration-color: #14a637;
+}
+
+.bad {
+  text-decoration-color: #aa1a13;
+}
+
+.type {
+  border: 2px solid #d2b48c;
+  border-radius: 10px;
+  padding: 4px;
+  margin: 4px;
 }
