@@ -39,7 +39,7 @@ router.get('/logout', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    return res.json({ authenticated: false });
+    return res.json({ authenticated: false, user: {} });
   });
 });
 

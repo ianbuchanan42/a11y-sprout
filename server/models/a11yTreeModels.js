@@ -7,15 +7,6 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-const UserSchema = new mongoose.Schema({
-  githubId: { type: String, required: true, unique: true },
-  username: { type: String, required: true },
-  profileUrl: String,
-  avatarUrl: String,
-});
-
-const User = mongoose.model('user', UserSchema);
-
 const ElementSchema = new mongoose.Schema({
   role: {
     type: String,
@@ -68,5 +59,17 @@ const A11YTreeSchema = new mongoose.Schema({
 });
 
 const A11lyTree = mongoose.model('a11y-tree', A11YTreeSchema);
+
+const UserSchema = new mongoose.Schema({
+  githubId: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  profileUrl: String,
+  avatarUrl: String,
+  trees: {
+    type: [A11YTreeSchema],
+  },
+});
+
+const User = mongoose.model('user', UserSchema);
 
 module.exports = { A11lyTree, User };

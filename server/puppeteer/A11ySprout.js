@@ -137,6 +137,7 @@ A11ySprout.parse = async (url) => {
   await browser.close();
   console.log(links);
   const result = {
+    url: url,
     tree: cleanTree,
     tabIndex,
     headers,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, addToPriorities } from 'react';
 
 function Link({ text, link }) {
   return (

@@ -19,7 +19,7 @@ function Tabs({ activeTab, handleTabChange }) {
         className={activeTab === 'Headers' ? 'active' : ''}
         onClick={handleTabChange('Headers')}
       >
-        'Headers
+        Headers
       </button>
       <button
         className={activeTab === 'Links' ? 'active' : ''}

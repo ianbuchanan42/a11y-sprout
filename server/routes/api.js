@@ -18,4 +18,13 @@ router.post('/', a11yTreeController.getTree);
 //   }
 // });
 
+// const authorized = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     next();
+//   }
+//   return res.status(401).json({ message: 'Unauthorized' });
+// };
+
+router.delete('/', a11yTreeController.deleteTree);
+
 module.exports = router;

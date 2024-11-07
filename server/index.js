@@ -56,6 +56,8 @@ app.use('/api', apiRoutes);
 // }
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use((err, req, res, next) => {
   console.log(err);
   const defaultErr = {

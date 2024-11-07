@@ -24,6 +24,7 @@ passport.use(
             username: profile.username,
             profileUrl: profile.profileUrl,
             avatarUrl: profile._json.avatar_url,
+            trees: [],
           });
         }
 

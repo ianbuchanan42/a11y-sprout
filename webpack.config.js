@@ -28,6 +28,18 @@ module.exports = {
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]', // Keeps original file path and name
+              outputPath: 'assets', // Puts files in the 'dist/assets' folder
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {

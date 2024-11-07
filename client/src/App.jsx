@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import URLForm from './components/URLForm';
-import TreeOutput from './components/Tree';
+import Tree from './components/Tree';
 import Tabs from './components/Tabs';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import InputDropdown from './components/InputDropdown';
+import RemoveTree from './components/RemoveTree';
+import logo from './assets/A11y-Sprout-Logo.png';
+
+///Users/ianbuchanan/Codesmith/a11y-sprout/client/public/assets/A11y-Sprout-Logo.png
 
 const App = () => {
-  const [a11yTree, setA11Tree] = useState({
-    tree: [],
-    tabIndex: [],
-    headers: [],
-    links: [],
-    nonSemanticLinks: [],
-    skipLink: { text: '', link: '' },
-  });
+  const [a11yTree, setA11yTree] = useState(null);
+
+  const [user, setUser] = useState(null);
 
   const [auth, setAuth] = useState({ authenticated: false, user: null });
 
@@ -26,6 +26,7 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log({ data });
+        setUser(data.user);
         setAuth(data); // Update state with authentication status and user data
       })
       .catch((error) => {
@@ -47,19 +48,28 @@ const App = () => {
 
   return (
     <main>
-      <h1>A11y Sprout</h1>
+      <h1> 🌱 A11y Sprout</h1>
+
+      <img src={logo} alt='A11y Sprout Logo' />
       <Login />
       <Logout />
       {auth.user ? <span>{auth.user.username}</span> : <span>no user</span>}
-      <URLForm updateTree={setA11Tree} />
-
-      {a11yTree.tree.length ? (
-        <>
+      <URLForm auth={auth} updateTree={setA11yTree} updateUser={setUser} />
+      {console.log({ user })}
+      {user && (
+        <InputDropdown
+          label={'User Trees'}
+          user={user}
+          updateTree={setA11yTree}
+        />
+      )}
+      {console.log({ a11yTree })}
+      {a11yTree && (
+        <section>
+          {user && <RemoveTree userId={user._id} treeUrl={a11yTree.url} />}
           <Tabs activeTab={activeTab} handleTabChange={handleTabChange} />
-          <TreeOutput activeTab={activeTab} tree={a11yTree} />
-        </>
-      ) : (
-        <span>🌱</span>
+          <Tree activeTab={activeTab} tree={a11yTree} />
+        </section>
       )}
     </main>
   );
@@ -67,23 +77,11 @@ const App = () => {
 
 export default App;
 
-// import React, { useState } from 'react';
-
-// const TabbedPage = () => {
-//     // State to track which tab is active
-//     const [activeTab, setActiveTab] = useState('Tab1');
-
-//     // Function to handle tab change
-//     const handleTabChange = (tab) => {
-//         setActiveTab(tab);
-//     };
-
-//     return (
-//         <div>
-//             <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
-//             <TabContent activeTab={activeTab} />
-//         </div>
-//     );
-// };
-
-// export default TabbedPage;
+// {
+// tree: [],
+// tabIndex: [],
+// headers: [],
+// links: [],
+// nonSemanticLinks: [],
+// skipLink: { text: '', link: '' },
+// }

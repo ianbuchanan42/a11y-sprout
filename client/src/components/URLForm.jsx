@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function URLForm({ updateTree }) {
+function URLForm({ auth, updateTree, updateUser }) {
   const [url, setUrl] = useState('');
   const [error, setError] = useState(null);
 
@@ -15,17 +15,28 @@ function URLForm({ updateTree }) {
     // !!!!!! clean up and use async await
     try {
       new URL(url);
+      let body = { url, id: null };
+      if (auth.user) {
+        console.log(url, auth.user._id);
+        body.id = auth.user._id;
+      }
+
       fetch('/api', {
         method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify(body),
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          updateTree(data);
+          if (auth.user) {
+            updateUser(data.user);
+            updateTree(data.tree);
+          } else {
+            updateTree(data);
+          }
         });
     } catch (err) {
       console.log(err);

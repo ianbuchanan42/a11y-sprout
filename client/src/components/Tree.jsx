@@ -7,6 +7,8 @@ import { nanoid } from 'nanoid';
 function Tree({ tree, activeTab }) {
   const skipLink = tree.skipLink;
 
+  //handle addToPriorities here?
+
   const links = tree.links.map(({ text, link }) => {
     return <Link text={text} link={link} key={nanoid()} />;
   });
@@ -42,7 +44,20 @@ function Tree({ tree, activeTab }) {
           {skipLink.text.length ? (
             <Link text={skipLink.text} link={skipLink.link} />
           ) : (
-            <span>No Skip Link Found</span>
+            <>
+              <span>No Skip Link Found</span>
+              <p>
+                A skip link is an essential accessibility feature that allows
+                users, especially those relying on assistive technologies like
+                screen readers and keyboard navigation, to bypass repetitive
+                navigation and jump directly to the main content of a page. This
+                improves navigation efficiency, reduces cognitive load, and
+                aligns with Web Content Accessibility Guidelines (WCAG). Skip
+                links enhance usability for all users by minimizing the need to
+                repeatedly tab or scroll through the same elements, creating a
+                more inclusive and user-friendly experience.
+              </p>
+            </>
           )}
         </Branch>
       )}
