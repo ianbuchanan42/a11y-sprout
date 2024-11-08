@@ -81,32 +81,37 @@ function Tree({ tree, activeTab }) {
   return (
     <section id='tree'>
       {activeTab === 'Full Tree' && (
-        <Branch aside={treeAside} title={'Full Tree'}>
+        <Branch key={nanoid()} aside={treeAside} title={'Full Tree'}>
           {elements}
         </Branch>
       )}
       {activeTab === 'Tab Index' && (
-        <Branch aside={tabIndexAside} title={'Tab Index'}>
+        <Branch key={nanoid()} aside={tabIndexAside} title={'Tab Index'}>
           {tabElements}
         </Branch>
       )}
       {activeTab === 'Headers' && (
-        <Branch aside={[headerAside, h1Aside]} title={'Headers'}>
+        <Branch key={nanoid()} aside={[headerAside, h1Aside]} title={'Headers'}>
           {headers}
         </Branch>
       )}
       {activeTab === 'Links' && (
-        <Branch aside={linksAside} title={'Links'}>
+        <Branch key={nanoid()} aside={linksAside} title={'Links'}>
           {links}
         </Branch>
       )}
       {activeTab === 'Non Semantic Links' && (
-        <Branch aside={nonSemanticLinksAside} title={'Non Semantic Links'}>
+        <Branch
+          key={nanoid()}
+          aside={nonSemanticLinksAside}
+          title={'Non Semantic Links'}
+        >
           {nonSemanticLinks}
         </Branch>
       )}
       {activeTab === 'Skip Link' && (
         <Branch
+          key={nanoid()}
           aside={[skipLinkFound, skipLinkAside]}
           title={'Skip Link'}
         ></Branch>

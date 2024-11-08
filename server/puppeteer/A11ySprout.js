@@ -138,9 +138,8 @@ A11ySprout.parse = async (url) => {
     return { role: element.role, name: element.name, level: element.level };
   });
 
-  console.log('clean:', cleanTree);
+  //console.log('clean:', cleanTree);
 
-  //const cleanHeaders
   await browser.close();
   console.log(links);
   const result = {

@@ -12,7 +12,7 @@ const a11yTreeController = {};
 a11yTreeController.getTree = async (req, res, next) => {
   const url = req.body.url;
   const id = req.body.id;
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!! A11yTree C');
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!! A11yTree Controller');
   try {
     if (id) {
       const user = await models.User.findById(id);
@@ -76,6 +76,29 @@ a11yTreeController.deleteTree = async (req, res, next) => {
     );
 
     return res.status(200).json(updatedUser);
+    // select trees, filter out tree, save user;
+  } catch (err) {
+    next(err);
+  }
+};
+
+a11yTreeController.updateTree = async (req, res, next) => {
+  const id = req.body.id;
+  const url = req.body.url;
+  try {
+    const user = await models.User.findById(id);
+
+    const filtered = user.trees.filter((tree) => {
+      return tree.url !== url;
+    });
+
+    const updatedTree = await A11ySprout.parse(url);
+
+    user.trees = [...filtered, updatedTree];
+
+    await user.save();
+
+    return res.status(200).json(updatedTree);
     // select trees, filter out tree, save user;
   } catch (err) {
     next(err);

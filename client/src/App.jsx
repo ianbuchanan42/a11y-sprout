@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import URLForm from './components/URLForm';
 import Tree from './components/Tree';
 import Tabs from './components/Tabs';
-// import Login from './components/Login';
-// import Logout from './components/Logout';
 import InputDropdown from './components/InputDropdown';
 import RemoveTree from './components/RemoveTree';
+import UpdateTree from './components/UpdateTree';
 import Header from './components/Header';
+//const Header = lazy(() => import('./components/Header'));
+import Footer from './components/Footer';
+//const Footer = lazy(() => import('./components/Footer'));
 import logo from './assets/A11y-Sprout-Logo.png';
 
-///Users/ianbuchanan/Codesmith/a11y-sprout/client/public/assets/A11y-Sprout-Logo.png
+// future features list
+// * loading spinner
+// * update current tree
+// * github link to project
+// - show state of img alt text
+// - test out headers hierarchy parsing output
+// - timeout if parsing takes longer than x amount of time
+// - get Emmma R. to look at over all styling
+// - make A11y Sprout accessible
+// - create production build
+// - launch on github
+// - include pagination for long list of elements
+// - include user avatar when logged in
 
 const App = () => {
   const [a11yTree, setA11yTree] = useState(null);
@@ -17,6 +31,8 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const [auth, setAuth] = useState({ authenticated: false, user: null });
+
+  const [activeTab, setActiveTab] = useState('Full Tree');
 
   useEffect(() => {
     // Fetch user data to check authentication status
@@ -40,8 +56,6 @@ const App = () => {
       });
   }, []);
 
-  const [activeTab, setActiveTab] = useState('Full Tree');
-
   const handleTabChange = (tab) => {
     return () => {
       setActiveTab(tab);
@@ -49,29 +63,47 @@ const App = () => {
   };
 
   return (
-    <main>
+    <>
       <Header logo={logo} auth={auth} />
+      <main>
+        <URLForm auth={auth} updateTree={setA11yTree} updateUser={setUser} />
+        {console.log({ user })}
+        {user && user.trees.length > 0 && (
+          <InputDropdown
+            label={'Parsed A11y Trees'}
+            user={user}
+            updateTree={setA11yTree}
+            currentTree={a11yTree}
+          />
+        )}
+        {console.log({ a11yTree })}
+        {a11yTree && (
+          <section id='a11yTree'>
+            <h2>{a11yTree.url}</h2>
+            <span>
+              {user && (
+                <RemoveTree
+                  userId={user._id}
+                  treeUrl={a11yTree.url}
+                  updateTree={setA11yTree}
+                />
+              )}
+              {user && (
+                <UpdateTree
+                  userId={user._id}
+                  treeUrl={a11yTree.url}
+                  updateTree={setA11yTree}
+                />
+              )}
+            </span>
 
-      <URLForm auth={auth} updateTree={setA11yTree} updateUser={setUser} />
-      {console.log({ user })}
-      {user && user.trees.length > 0 && (
-        <InputDropdown
-          label={'Parsed A11y Trees'}
-          user={user}
-          updateTree={setA11yTree}
-          currentTree={a11yTree}
-        />
-      )}
-      {console.log({ a11yTree })}
-      {a11yTree && (
-        <section id='a11yTree'>
-          <h2>{a11yTree.url}</h2>
-          {user && <RemoveTree userId={user._id} treeUrl={a11yTree.url} />}
-          <Tabs activeTab={activeTab} handleTabChange={handleTabChange} />
-          <Tree activeTab={activeTab} tree={a11yTree} />
-        </section>
-      )}
-    </main>
+            <Tabs activeTab={activeTab} handleTabChange={handleTabChange} />
+            <Tree activeTab={activeTab} tree={a11yTree} />
+          </section>
+        )}
+      </main>
+      <Footer />
+    </>
   );
 };
 

@@ -2,11 +2,12 @@ import React from 'react';
 
 //remove with no-cors mode!!!!!
 
-function RemoveTree({ userId, treeUrl, updateTree }) {
+function UpdateTree({ userId, treeUrl, updateTree }) {
   const handleRemove = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
+    console.log({ userId, treeUrl });
     fetch('api/', {
-      method: 'DELETE',
+      method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -16,19 +17,18 @@ function RemoveTree({ userId, treeUrl, updateTree }) {
       .then((res) => res.json())
       .then((body) => {
         // Redirect to home or login page after logout
-        console.log('removed tree from this user:', body);
+        console.log('Updating this tree:', body);
 
-        updateTree(body.trees[0]);
+        updateTree(body);
         //    window.location.href = '/';
       })
-
       .catch((error) => console.error('Remove error', error));
   };
   return (
-    <button id='remove' onClick={handleRemove}>
-      Remove Tree
+    <button id='update' onClick={handleRemove}>
+      Update Tree
     </button>
   );
 }
 
-export default RemoveTree;
+export default UpdateTree;

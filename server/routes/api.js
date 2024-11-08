@@ -8,4 +8,6 @@ router.post('/', a11yTreeController.getTree);
 
 router.delete('/', a11yTreeController.deleteTree);
 
+router.patch('/', a11yTreeController.updateTree);
+
 module.exports = router;

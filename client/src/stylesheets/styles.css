@@ -1,8 +1,25 @@
+html {
+  background-color: #955600;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* *,
+*::before,
+*::after {
+  box-sizing: inherit;
+} */
+
 body {
   background-color: #ffd49a;
   color: #3d3e3d;
   font-family: 'Nunito', sans-serif;
-  margin: 2em;
+  height: 100%;
 }
 
 h1 {
@@ -177,8 +194,9 @@ header {
   align-items: center;
 }
 
-#remove {
-  margin: auto;
+#remove,
+#update {
+  margin: 1em;
   background-color: #ffe8c7;
   padding: 1em;
   border-radius: 10px;
@@ -230,3 +248,49 @@ header {
   padding: 0.5em;
   border-radius: 5px;
 }
+
+/* loading sprout emoji for when fetching/parsing */
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+.wiggle-emoji {
+  margin: 1.1em;
+  display: inline-block;
+  animation: wiggle 0.5s ease-in-out infinite;
+  height: auto;
+  font-size: 26px;
+}
+
+/* github icon */
+
+.icon-text {
+  display: none;
+}
+
+#gitHubIcon {
+  height: 50px;
+  width: 50px;
+}
+
+footer {
+  color: #d2b48c;
+  background-color: #955600;
+  margin: 0;
+  padding: 3em;
+  width: 100%;
+  height: 6em;
+  margin-top: 4em;
+}
+
+/* trying to handle content jump on load */
+/* #loading-main {
+  height: 100vh;
+} */

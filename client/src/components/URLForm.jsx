@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function URLForm({ auth, updateTree, updateUser }) {
   const [url, setUrl] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setUrl(e.target.value);
@@ -12,6 +13,7 @@ function URLForm({ auth, updateTree, updateUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e);
+    setLoading(true);
     // !!!!!! clean up and use async await
     try {
       new URL(url);
@@ -32,6 +34,7 @@ function URLForm({ auth, updateTree, updateUser }) {
         .then((data) => {
           console.log(data);
           setUrl('');
+          setLoading(false);
           if (auth.user) {
             updateUser(data.user);
             updateTree(data.tree);
@@ -55,11 +58,14 @@ function URLForm({ auth, updateTree, updateUser }) {
         placeholder='https://example.com'
         required
       />
-      <button type='submit'>Submit</button>
+
+      {loading ? (
+        <span className='wiggle-emoji'>🌱</span>
+      ) : (
+        <button type='submit'>Submit</button>
+      )}
     </form>
   );
 }
-
-// {error && <p style={{ color: 'red' }}>{error}</p>}
 
 export default URLForm;
